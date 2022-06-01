@@ -8,7 +8,6 @@ except ImportError:  # Will be removed in Django 2.0
 from oauthlib.oauth2.rfc6749 import errors
 from oauthlib.oauth2.rfc6749.grant_types.refresh_token import RefreshTokenGrant
 
-from social_django.views import NAMESPACE
 from social_django.utils import load_backend, load_strategy
 from social_core.exceptions import MissingBackend, SocialAuthBaseException
 from social_core.utils import requests
@@ -87,7 +86,7 @@ class SocialTokenGrant(RefreshTokenGrant):
                 strategy,
                 request.backend,
                 reverse(
-                    "%s:%s:complete" % (DRFSO2_URL_NAMESPACE, NAMESPACE),
+                    f'{DRFSO2_URL_NAMESPACE}:complete',
                     args=(request.backend,),
                 ),
             )

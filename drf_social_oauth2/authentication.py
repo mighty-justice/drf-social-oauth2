@@ -3,11 +3,11 @@ try:
 except ImportError:  # Will be removed in Django 2.0
     from django.core.urlresolvers import reverse
 
+from drf_social_oauth2.settings import DRFSO2_URL_NAMESPACE
 from rest_framework.authentication import BaseAuthentication, get_authorization_header
 from rest_framework import HTTP_HEADER_ENCODING
 from rest_framework.exceptions import AuthenticationFailed
 
-from social_django.views import NAMESPACE
 from social_django.utils import load_backend, load_strategy
 from social_core.exceptions import MissingBackend
 from social_core.utils import requests
@@ -55,7 +55,7 @@ class SocialAuthentication(BaseAuthentication):
 
         try:
             backend = load_backend(
-                strategy, backend, reverse(f'{NAMESPACE}:complete', args=(backend,)),
+                strategy, backend, reverse(f'{DRFSO2_URL_NAMESPACE}:complete', args=(backend,)),
             )
 
             user = backend.do_auth(access_token=token)
